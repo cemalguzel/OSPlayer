@@ -1,0 +1,17 @@
+const {test}=require('node:test');const assert=require('node:assert/strict');const fs=require('node:fs');const vm=require('node:vm');const {EventEmitter}=require('node:events');
+const policy=require('../dist-electron/ad-policy');
+function setup(accepted=true){
+ const ipc=new EventEmitter(),windows=[],calls=[];let focused=true;let interval;
+ class W extends EventEmitter{constructor(){super();this.webContents=new EventEmitter();this.webContents.send=(...x)=>calls.push(x);this.webContents.setWindowOpenHandler=()=>{};this.destroyed=false;windows.push(this);}setMenu(){}setBounds(b){this.bounds=b;}isDestroyed(){return this.destroyed;}isVisible(){return true;}isMinimized(){return false;}isFocused(){return focused;}getContentBounds(){return {x:0,y:0,width:1280,height:720};}destroy(){this.destroyed=true;}showInactive(){this.shown=true;}moveTop(){}setIgnoreMouseEvents(){}}
+ const main=new W();const timers=new Set();
+ const fetch=async(url,opts)=>{calls.push({url,opts});return {ok:true,json:async()=>opts.body?{accepted}:{advertisements:[{id:1,version:1,delivery_id:'ticket',type:'ticker',duration:30,repeat_interval:60,text:'Deneme',display_screens:['home','live']}]}};};
+ const sandbox={exports:{},require:n=>n==='electron'?{BrowserWindow:W,ipcMain:ipc}:n==='./ad-policy'?policy:require(n),fetch,Buffer,URL,AbortController,setTimeout:(f)=>{const t={f};timers.add(t);return t;},clearTimeout:t=>timers.delete(t),setInterval:f=>(interval=f,1),clearInterval:()=>{}};
+ vm.runInNewContext(fs.readFileSync(require.resolve('../dist-electron/advertising'),'utf8'),sandbox);
+ sandbox.exports.installAdvertising(main,'preload',w=>queueMicrotask(()=>w.webContents.emit('did-finish-load')),()=>({mac:'AA',deviceKey:'secret'}),'Deneme');
+ return {ipc,main,windows,calls,setFocused:v=>focused=v,tick:()=>interval()};
+}
+const settle=()=>new Promise(r=>setImmediate(r));
+test('hazır olmadan ve sunucu onayı olmadan pencere açılmaz',async()=>{const s=setup();s.ipc.emit('advertising:context',{sender:s.main.webContents},{screen:'home',fullscreen:false,controls:false});await settle();assert.equal(s.windows.length,2);const w=s.windows[1];assert(!w.shown);s.ipc.emit('advertising:ready',{sender:w.webContents});await settle();assert(w.shown);assert(s.calls.some(c=>c.opts?.body&&JSON.parse(c.opts.body).state==='started'));s.main.emit('closed');});
+test('reddedilen başlangıç gösterilmez',async()=>{const s=setup(false);s.ipc.emit('advertising:context',{sender:s.main.webContents},{screen:'home'});await settle();const w=s.windows[1];s.ipc.emit('advertising:ready',{sender:w.webContents});await settle();assert(!w.shown);assert(w.destroyed);s.main.emit('closed');});
+test('kontrol çubuğu açık/önizleme sırasında reklam hazırlanmaz',async()=>{const s=setup();s.ipc.emit('advertising:context',{sender:s.main.webContents},{screen:'live',fullscreen:false,controls:false});await settle();assert.equal(s.windows.length,1);s.ipc.emit('advertising:context',{sender:s.main.webContents},{screen:'live',fullscreen:true,controls:true});await settle();assert.equal(s.windows.length,1);s.main.emit('closed');});
+test('arka planda reklam yok ve kimlik başlıkları panele gider',async()=>{const s=setup();s.ipc.emit('advertising:context',{sender:s.main.webContents},{screen:'home'});await settle();assert(s.calls.filter(c=>c.url).every(c=>c.url.startsWith('https://osplayer.com.tr/api/device/advertisements')));s.setFocused(false);s.main.emit('blur');assert(s.windows[1].destroyed);const count=s.calls.length;s.tick();await settle();assert.equal(s.calls.length,count);s.main.emit('closed');});

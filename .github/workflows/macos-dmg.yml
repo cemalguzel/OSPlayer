@@ -1,0 +1,41 @@
+name: macOS DMG üret
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  dmg:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15
+            arch: arm64
+          - runner: macos-15-intel
+            arch: x64
+    runs-on: ${{ matrix.runner }}
+    env:
+      MACOSX_DEPLOYMENT_TARGET: '13.0'
+      CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: MPV bağımlılığını hazırla
+        run: brew install mpv
+      - name: DMG derle
+        run: bash scripts/build-platform.sh
+      - name: Özet oluştur
+        run: shasum -a 256 release/*.dmg > release/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: osplayer-macos-${{ matrix.arch }}
+          path: |
+            release/*.dmg
+            release/SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 7

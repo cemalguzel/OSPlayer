@@ -1,0 +1,34 @@
+{
+  "extends": null,
+  "appId": "com.ortaksistem.osplayer.desktop",
+  "productName": "OS Player",
+  "asar": true,
+  "directories": {
+    "output": "release",
+    "buildResources": "buildResources"
+  },
+  "files": [
+    "dist/**",
+    "dist-electron/**",
+    "package.json",
+    "!dist-electron/main.obf.js"
+  ],
+  "extraResources": [
+    {
+      "from": "mpv-addon/build/Release/mpv_addon.node",
+      "to": "mpv_addon.node"
+    }
+  ],
+  "mac": {
+    "target": [
+      "dmg"
+    ],
+    "category": "public.app-category.entertainment",
+    "artifactName": "OSPlayer_V1.dmg",
+    "identity": null
+  },
+  "asarUnpack": [
+    "**/*.node"
+  ],
+  "afterPack": "scripts/bundle-macos.cjs"
+}

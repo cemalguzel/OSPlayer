@@ -1,0 +1,377 @@
+{
+  "description": "Yalnız ortak src arayüzü; electron ve yerel eklenti dosyaları platforma göre uyarlanmıştır.",
+  "files": [
+    {
+      "file": "src/App.tsx",
+      "windows": "918fd2e16d5bb9b841fc5710777aea2ce7d617d4e4aa87b45c8e52dead19a017",
+      "osplayer-desktop-linux": "918fd2e16d5bb9b841fc5710777aea2ce7d617d4e4aa87b45c8e52dead19a017",
+      "osplayer-desktop-macos": "918fd2e16d5bb9b841fc5710777aea2ce7d617d4e4aa87b45c8e52dead19a017"
+    },
+    {
+      "file": "src/assets/logo_splash.png",
+      "windows": "9d9fd46b4b6d7ebfe8aaf0421d1f3e7f02a00fd807929ba9b4aaaa433abace69",
+      "osplayer-desktop-linux": "9d9fd46b4b6d7ebfe8aaf0421d1f3e7f02a00fd807929ba9b4aaaa433abace69",
+      "osplayer-desktop-macos": "9d9fd46b4b6d7ebfe8aaf0421d1f3e7f02a00fd807929ba9b4aaaa433abace69"
+    },
+    {
+      "file": "src/assets/theme-colorful.png",
+      "windows": "728c15f9b59bff51bae40c0aa0be8cce69bf7035f7c9857f09de697fd4a8e6c1",
+      "osplayer-desktop-linux": "728c15f9b59bff51bae40c0aa0be8cce69bf7035f7c9857f09de697fd4a8e6c1",
+      "osplayer-desktop-macos": "728c15f9b59bff51bae40c0aa0be8cce69bf7035f7c9857f09de697fd4a8e6c1"
+    },
+    {
+      "file": "src/assets/theme-red.jpg",
+      "windows": "4c247939be5b02bbdc8cebba6e28ad91609640d1d5b0305c46b50fc559b99859",
+      "osplayer-desktop-linux": "4c247939be5b02bbdc8cebba6e28ad91609640d1d5b0305c46b50fc559b99859",
+      "osplayer-desktop-macos": "4c247939be5b02bbdc8cebba6e28ad91609640d1d5b0305c46b50fc559b99859"
+    },
+    {
+      "file": "src/assets/wallpapers/back110.png",
+      "windows": "41e9aa8e3c6511a02743866700ba22930cc6c6ed782fadc173a76e93e359ba9c",
+      "osplayer-desktop-linux": "41e9aa8e3c6511a02743866700ba22930cc6c6ed782fadc173a76e93e359ba9c",
+      "osplayer-desktop-macos": "41e9aa8e3c6511a02743866700ba22930cc6c6ed782fadc173a76e93e359ba9c"
+    },
+    {
+      "file": "src/assets/wallpapers/back111.png",
+      "windows": "0a8c91e6dc82cac022dd0ca22e67b8a87d153af5a31333f31d756b8564203add",
+      "osplayer-desktop-linux": "0a8c91e6dc82cac022dd0ca22e67b8a87d153af5a31333f31d756b8564203add",
+      "osplayer-desktop-macos": "0a8c91e6dc82cac022dd0ca22e67b8a87d153af5a31333f31d756b8564203add"
+    },
+    {
+      "file": "src/assets/wallpapers/back112.png",
+      "windows": "0ab220df7ada348ae422f54b6281c9ea098f8811e152c7982d7a7af52d8bc57d",
+      "osplayer-desktop-linux": "0ab220df7ada348ae422f54b6281c9ea098f8811e152c7982d7a7af52d8bc57d",
+      "osplayer-desktop-macos": "0ab220df7ada348ae422f54b6281c9ea098f8811e152c7982d7a7af52d8bc57d"
+    },
+    {
+      "file": "src/assets/wallpapers/back113.jpg",
+      "windows": "4c247939be5b02bbdc8cebba6e28ad91609640d1d5b0305c46b50fc559b99859",
+      "osplayer-desktop-linux": "4c247939be5b02bbdc8cebba6e28ad91609640d1d5b0305c46b50fc559b99859",
+      "osplayer-desktop-macos": "4c247939be5b02bbdc8cebba6e28ad91609640d1d5b0305c46b50fc559b99859"
+    },
+    {
+      "file": "src/assets/wallpapers/back114.jpg",
+      "windows": "686f923caebca5bccbf6c6d22a4ce283e6b99092d70fd3b8c1d8e2281e5a9648",
+      "osplayer-desktop-linux": "686f923caebca5bccbf6c6d22a4ce283e6b99092d70fd3b8c1d8e2281e5a9648",
+      "osplayer-desktop-macos": "686f923caebca5bccbf6c6d22a4ce283e6b99092d70fd3b8c1d8e2281e5a9648"
+    },
+    {
+      "file": "src/assets/wallpapers/back115.jpg",
+      "windows": "268d09a765434dafcad11d765c8307b1478b233e2d5eb964124a5bf6bb52dbe2",
+      "osplayer-desktop-linux": "268d09a765434dafcad11d765c8307b1478b233e2d5eb964124a5bf6bb52dbe2",
+      "osplayer-desktop-macos": "268d09a765434dafcad11d765c8307b1478b233e2d5eb964124a5bf6bb52dbe2"
+    },
+    {
+      "file": "src/assets/wallpapers/back116.jpg",
+      "windows": "7d1c7115243d01a3c021b5f9f4a804f5a82c9aac60f466e96bb7120de656e26f",
+      "osplayer-desktop-linux": "7d1c7115243d01a3c021b5f9f4a804f5a82c9aac60f466e96bb7120de656e26f",
+      "osplayer-desktop-macos": "7d1c7115243d01a3c021b5f9f4a804f5a82c9aac60f466e96bb7120de656e26f"
+    },
+    {
+      "file": "src/assets/wallpapers/back117.jpg",
+      "windows": "e0a2c1feda69d9adde11e5c3335577d2fea5dcf4e17bcf267f978bb3da61fbeb",
+      "osplayer-desktop-linux": "e0a2c1feda69d9adde11e5c3335577d2fea5dcf4e17bcf267f978bb3da61fbeb",
+      "osplayer-desktop-macos": "e0a2c1feda69d9adde11e5c3335577d2fea5dcf4e17bcf267f978bb3da61fbeb"
+    },
+    {
+      "file": "src/assets/wallpapers/back118.jpg",
+      "windows": "0fed5df68da757bda92946fc7c7442958b11643e8af6079d2845727d54afc822",
+      "osplayer-desktop-linux": "0fed5df68da757bda92946fc7c7442958b11643e8af6079d2845727d54afc822",
+      "osplayer-desktop-macos": "0fed5df68da757bda92946fc7c7442958b11643e8af6079d2845727d54afc822"
+    },
+    {
+      "file": "src/assets/wallpapers/back119.png",
+      "windows": "e01e0a220d21dbcba0f7dc12e52612d68cc4c3c8409149317fd2560c26192bf9",
+      "osplayer-desktop-linux": "e01e0a220d21dbcba0f7dc12e52612d68cc4c3c8409149317fd2560c26192bf9",
+      "osplayer-desktop-macos": "e01e0a220d21dbcba0f7dc12e52612d68cc4c3c8409149317fd2560c26192bf9"
+    },
+    {
+      "file": "src/assets/wallpapers/back120.png",
+      "windows": "728c15f9b59bff51bae40c0aa0be8cce69bf7035f7c9857f09de697fd4a8e6c1",
+      "osplayer-desktop-linux": "728c15f9b59bff51bae40c0aa0be8cce69bf7035f7c9857f09de697fd4a8e6c1",
+      "osplayer-desktop-macos": "728c15f9b59bff51bae40c0aa0be8cce69bf7035f7c9857f09de697fd4a8e6c1"
+    },
+    {
+      "file": "src/assets/wallpapers/back121.png",
+      "windows": "801a7201ace8c1ae87541fc1832483fe04a606049b55e964a7c033b4e0dfa4e3",
+      "osplayer-desktop-linux": "801a7201ace8c1ae87541fc1832483fe04a606049b55e964a7c033b4e0dfa4e3",
+      "osplayer-desktop-macos": "801a7201ace8c1ae87541fc1832483fe04a606049b55e964a7c033b4e0dfa4e3"
+    },
+    {
+      "file": "src/assets/wallpapers/back122.jpg",
+      "windows": "ff0444fefef505cf5577fdea107a4562c4f3329b0bc24a2d83f64ea6f887a6de",
+      "osplayer-desktop-linux": "ff0444fefef505cf5577fdea107a4562c4f3329b0bc24a2d83f64ea6f887a6de",
+      "osplayer-desktop-macos": "ff0444fefef505cf5577fdea107a4562c4f3329b0bc24a2d83f64ea6f887a6de"
+    },
+    {
+      "file": "src/assets/wallpapers/navy-solid.svg",
+      "windows": "5403c0cf2af2803c1e8e02e1e404573b6de4145927d99aadc099a30c51462278",
+      "osplayer-desktop-linux": "5403c0cf2af2803c1e8e02e1e404573b6de4145927d99aadc099a30c51462278",
+      "osplayer-desktop-macos": "5403c0cf2af2803c1e8e02e1e404573b6de4145927d99aadc099a30c51462278"
+    },
+    {
+      "file": "src/components/VolumeControl.tsx",
+      "windows": "837c5679337509cc1ad2529a1e4407eb976a08b5814b4737bdb74a0fde8df598",
+      "osplayer-desktop-linux": "837c5679337509cc1ad2529a1e4407eb976a08b5814b4737bdb74a0fde8df598",
+      "osplayer-desktop-macos": "837c5679337509cc1ad2529a1e4407eb976a08b5814b4737bdb74a0fde8df598"
+    },
+    {
+      "file": "src/components/common.tsx",
+      "windows": "8dfc0d9016356d062df6d6abeda251be545c116da03240128ae4a33f1f4c90f4",
+      "osplayer-desktop-linux": "8dfc0d9016356d062df6d6abeda251be545c116da03240128ae4a33f1f4c90f4",
+      "osplayer-desktop-macos": "8dfc0d9016356d062df6d6abeda251be545c116da03240128ae4a33f1f4c90f4"
+    },
+    {
+      "file": "src/components/icons.tsx",
+      "windows": "5ac89f656d64b8870faf032957e48f5069e5e17fbbb44fb23156b1376f664e33",
+      "osplayer-desktop-linux": "5ac89f656d64b8870faf032957e48f5069e5e17fbbb44fb23156b1376f664e33",
+      "osplayer-desktop-macos": "5ac89f656d64b8870faf032957e48f5069e5e17fbbb44fb23156b1376f664e33"
+    },
+    {
+      "file": "src/implementation_plan.md",
+      "windows": "667d7417c6a0f47184104ef34532faddcf7143d61632c2e367ce9e73af42d00c",
+      "osplayer-desktop-linux": "667d7417c6a0f47184104ef34532faddcf7143d61632c2e367ce9e73af42d00c",
+      "osplayer-desktop-macos": "667d7417c6a0f47184104ef34532faddcf7143d61632c2e367ce9e73af42d00c"
+    },
+    {
+      "file": "src/index.css",
+      "windows": "a9fd4fe514c3f477d4b85e2a7011dc2e1a1e5542dd1aff24dc5c129ff7150948",
+      "osplayer-desktop-linux": "a9fd4fe514c3f477d4b85e2a7011dc2e1a1e5542dd1aff24dc5c129ff7150948",
+      "osplayer-desktop-macos": "a9fd4fe514c3f477d4b85e2a7011dc2e1a1e5542dd1aff24dc5c129ff7150948"
+    },
+    {
+      "file": "src/lib/appearance.ts",
+      "windows": "42ab65ab89655d35a7691c684b95d7f771e04a76f69aa2a4d98795f7a5f69bed",
+      "osplayer-desktop-linux": "42ab65ab89655d35a7691c684b95d7f771e04a76f69aa2a4d98795f7a5f69bed",
+      "osplayer-desktop-macos": "42ab65ab89655d35a7691c684b95d7f771e04a76f69aa2a4d98795f7a5f69bed"
+    },
+    {
+      "file": "src/lib/i18n.ts",
+      "windows": "e281b0915509d8841008634d9e3a3dfc2c3c8669bedbfc9551cc1f46327a4401",
+      "osplayer-desktop-linux": "e281b0915509d8841008634d9e3a3dfc2c3c8669bedbfc9551cc1f46327a4401",
+      "osplayer-desktop-macos": "e281b0915509d8841008634d9e3a3dfc2c3c8669bedbfc9551cc1f46327a4401"
+    },
+    {
+      "file": "src/lib/idb.ts",
+      "windows": "57aaed5ff2956d7378fefaa404e71e6c506fca89662c9dd19e417ae4bb4e4e0b",
+      "osplayer-desktop-linux": "57aaed5ff2956d7378fefaa404e71e6c506fca89662c9dd19e417ae4bb4e4e0b",
+      "osplayer-desktop-macos": "57aaed5ff2956d7378fefaa404e71e6c506fca89662c9dd19e417ae4bb4e4e0b"
+    },
+    {
+      "file": "src/lib/ipc.ts",
+      "windows": "708eca6a3bbd9c175d2204f22bee5cd3af68349a7010f15576646074aeca5bf9",
+      "osplayer-desktop-linux": "708eca6a3bbd9c175d2204f22bee5cd3af68349a7010f15576646074aeca5bf9",
+      "osplayer-desktop-macos": "708eca6a3bbd9c175d2204f22bee5cd3af68349a7010f15576646074aeca5bf9"
+    },
+    {
+      "file": "src/lib/m3u.ts",
+      "windows": "168961c5516c18214111ef9c8a432fa5f18c4cc9b963b545029204a780cf57a3",
+      "osplayer-desktop-linux": "168961c5516c18214111ef9c8a432fa5f18c4cc9b963b545029204a780cf57a3",
+      "osplayer-desktop-macos": "168961c5516c18214111ef9c8a432fa5f18c4cc9b963b545029204a780cf57a3"
+    },
+    {
+      "file": "src/lib/panel.ts",
+      "windows": "92034ffdc6cf2c3cb18bc0601b874d824e37d7f7cf5748c7b54b9b34a409d228",
+      "osplayer-desktop-linux": "92034ffdc6cf2c3cb18bc0601b874d824e37d7f7cf5748c7b54b9b34a409d228",
+      "osplayer-desktop-macos": "92034ffdc6cf2c3cb18bc0601b874d824e37d7f7cf5748c7b54b9b34a409d228"
+    },
+    {
+      "file": "src/lib/tmdb.ts",
+      "windows": "7d6420c20069f1e15a10068b51b608a5b774874a7ba3d1f797f108c059da6c08",
+      "osplayer-desktop-linux": "7d6420c20069f1e15a10068b51b608a5b774874a7ba3d1f797f108c059da6c08",
+      "osplayer-desktop-macos": "7d6420c20069f1e15a10068b51b608a5b774874a7ba3d1f797f108c059da6c08"
+    },
+    {
+      "file": "src/lib/translations.ts",
+      "windows": "c47492c74ec5281a83432d5ea3c6d1cc3467145bcd51fde80e41d5e8575db14b",
+      "osplayer-desktop-linux": "c47492c74ec5281a83432d5ea3c6d1cc3467145bcd51fde80e41d5e8575db14b",
+      "osplayer-desktop-macos": "c47492c74ec5281a83432d5ea3c6d1cc3467145bcd51fde80e41d5e8575db14b"
+    },
+    {
+      "file": "src/lib/weather.ts",
+      "windows": "d6cab351c031f4a1c171ecd454afa1c13922ff7dab30dd32e96f79c74320acb5",
+      "osplayer-desktop-linux": "d6cab351c031f4a1c171ecd454afa1c13922ff7dab30dd32e96f79c74320acb5",
+      "osplayer-desktop-macos": "d6cab351c031f4a1c171ecd454afa1c13922ff7dab30dd32e96f79c74320acb5"
+    },
+    {
+      "file": "src/lib/xtream.ts",
+      "windows": "c2efbf5a4481e2bbd3c4b503b8d480d39787853bec3718b7b702de4ed60a3bec",
+      "osplayer-desktop-linux": "c2efbf5a4481e2bbd3c4b503b8d480d39787853bec3718b7b702de4ed60a3bec",
+      "osplayer-desktop-macos": "c2efbf5a4481e2bbd3c4b503b8d480d39787853bec3718b7b702de4ed60a3bec"
+    },
+    {
+      "file": "src/lib.rar",
+      "windows": "e33187102634dbae99a48fa872e437eb323608e21439d847fcc48ba2d38140fc",
+      "osplayer-desktop-linux": "e33187102634dbae99a48fa872e437eb323608e21439d847fcc48ba2d38140fc",
+      "osplayer-desktop-macos": "e33187102634dbae99a48fa872e437eb323608e21439d847fcc48ba2d38140fc"
+    },
+    {
+      "file": "src/main.tsx",
+      "windows": "a461058128cf414e26349f8182b2bdffcd1bf630919571e3b6203cdd85200802",
+      "osplayer-desktop-linux": "a461058128cf414e26349f8182b2bdffcd1bf630919571e3b6203cdd85200802",
+      "osplayer-desktop-macos": "a461058128cf414e26349f8182b2bdffcd1bf630919571e3b6203cdd85200802"
+    },
+    {
+      "file": "src/nav/spatial.ts",
+      "windows": "44fb0b4f604b5951c77a7943e871e7bf2f28a10c4e96e182d8dfe0dd3f2c3007",
+      "osplayer-desktop-linux": "44fb0b4f604b5951c77a7943e871e7bf2f28a10c4e96e182d8dfe0dd3f2c3007",
+      "osplayer-desktop-macos": "44fb0b4f604b5951c77a7943e871e7bf2f28a10c4e96e182d8dfe0dd3f2c3007"
+    },
+    {
+      "file": "src/player/VodPlayer.tsx",
+      "windows": "c90d84bc0296f313e4d65cb4f52c9e4e31686e0c1259ca21b425abd82adae2e4",
+      "osplayer-desktop-linux": "c90d84bc0296f313e4d65cb4f52c9e4e31686e0c1259ca21b425abd82adae2e4",
+      "osplayer-desktop-macos": "c90d84bc0296f313e4d65cb4f52c9e4e31686e0c1259ca21b425abd82adae2e4"
+    },
+    {
+      "file": "src/player/over-video.tsx",
+      "windows": "30745e91833b418f7d5101d0bd6037bc313c8fa563f9205d7c1d7b5f88a8b2bd",
+      "osplayer-desktop-linux": "30745e91833b418f7d5101d0bd6037bc313c8fa563f9205d7c1d7b5f88a8b2bd",
+      "osplayer-desktop-macos": "30745e91833b418f7d5101d0bd6037bc313c8fa563f9205d7c1d7b5f88a8b2bd"
+    },
+    {
+      "file": "src/player/useHtmlPlayer.ts",
+      "windows": "6160cba83ea9c0fda292a9ae4530ab553e3b4a56e10322e48b99323dc6fdc99b",
+      "osplayer-desktop-linux": "6160cba83ea9c0fda292a9ae4530ab553e3b4a56e10322e48b99323dc6fdc99b",
+      "osplayer-desktop-macos": "6160cba83ea9c0fda292a9ae4530ab553e3b4a56e10322e48b99323dc6fdc99b"
+    },
+    {
+      "file": "src/player/usePlayer.ts",
+      "windows": "6a9438abecb1c587e17b502c9dbdeec2ce2f5309d999f07f7d462c48c122ac10",
+      "osplayer-desktop-linux": "6a9438abecb1c587e17b502c9dbdeec2ce2f5309d999f07f7d462c48c122ac10",
+      "osplayer-desktop-macos": "6a9438abecb1c587e17b502c9dbdeec2ce2f5309d999f07f7d462c48c122ac10"
+    },
+    {
+      "file": "src/screens/AccountManager.tsx",
+      "windows": "9f896335e6b924c805ba6811d1997aab7eb721b355833a5bb71b92baeda3a7ac",
+      "osplayer-desktop-linux": "9f896335e6b924c805ba6811d1997aab7eb721b355833a5bb71b92baeda3a7ac",
+      "osplayer-desktop-macos": "9f896335e6b924c805ba6811d1997aab7eb721b355833a5bb71b92baeda3a7ac"
+    },
+    {
+      "file": "src/screens/AccountManager1.tsx",
+      "windows": "355b87a6a65c521f9b097de4e58792080494204022f982a73fa586615235c1f5",
+      "osplayer-desktop-linux": "355b87a6a65c521f9b097de4e58792080494204022f982a73fa586615235c1f5",
+      "osplayer-desktop-macos": "355b87a6a65c521f9b097de4e58792080494204022f982a73fa586615235c1f5"
+    },
+    {
+      "file": "src/screens/Advertisement.tsx",
+      "windows": "39980c2e8e4794d439e9aa873498011fb1866499b1f44c62c862016ec2cd346d",
+      "osplayer-desktop-linux": "39980c2e8e4794d439e9aa873498011fb1866499b1f44c62c862016ec2cd346d",
+      "osplayer-desktop-macos": "39980c2e8e4794d439e9aa873498011fb1866499b1f44c62c862016ec2cd346d"
+    },
+    {
+      "file": "src/screens/Dashboard.tsx",
+      "windows": "b229dcea87fa2c999615eca967436cf2d68667db6e30806af48b97953165493b",
+      "osplayer-desktop-linux": "b229dcea87fa2c999615eca967436cf2d68667db6e30806af48b97953165493b",
+      "osplayer-desktop-macos": "b229dcea87fa2c999615eca967436cf2d68667db6e30806af48b97953165493b"
+    },
+    {
+      "file": "src/screens/LiveTv.tsx",
+      "windows": "a3bcc0cd5bd653479d2cdc46d0348b0e52574dd2c2db2ab8830779d6177c495f",
+      "osplayer-desktop-linux": "a3bcc0cd5bd653479d2cdc46d0348b0e52574dd2c2db2ab8830779d6177c495f",
+      "osplayer-desktop-macos": "a3bcc0cd5bd653479d2cdc46d0348b0e52574dd2c2db2ab8830779d6177c495f"
+    },
+    {
+      "file": "src/screens/Login.tsx",
+      "windows": "85a38c564d0c196f92993a81512ce3e48a0a14cc3e29c0f7c38becf2e05f51d7",
+      "osplayer-desktop-linux": "85a38c564d0c196f92993a81512ce3e48a0a14cc3e29c0f7c38becf2e05f51d7",
+      "osplayer-desktop-macos": "85a38c564d0c196f92993a81512ce3e48a0a14cc3e29c0f7c38becf2e05f51d7"
+    },
+    {
+      "file": "src/screens/Movies.tsx",
+      "windows": "dd936fc71503baec82573e1c0153672345d1a3350852b10989dedaf800196dc4",
+      "osplayer-desktop-linux": "dd936fc71503baec82573e1c0153672345d1a3350852b10989dedaf800196dc4",
+      "osplayer-desktop-macos": "dd936fc71503baec82573e1c0153672345d1a3350852b10989dedaf800196dc4"
+    },
+    {
+      "file": "src/screens/Overlay.tsx",
+      "windows": "ddcecec39029dbb86fbaf057a2bf12c537c1d157071742b07c4a92f990535455",
+      "osplayer-desktop-linux": "ddcecec39029dbb86fbaf057a2bf12c537c1d157071742b07c4a92f990535455",
+      "osplayer-desktop-macos": "ddcecec39029dbb86fbaf057a2bf12c537c1d157071742b07c4a92f990535455"
+    },
+    {
+      "file": "src/screens/Profile.tsx",
+      "windows": "104318a514e26fab47c162b93ccdbae28f690cf14e7ae42b3c9e48ed3ae0c402",
+      "osplayer-desktop-linux": "104318a514e26fab47c162b93ccdbae28f690cf14e7ae42b3c9e48ed3ae0c402",
+      "osplayer-desktop-macos": "104318a514e26fab47c162b93ccdbae28f690cf14e7ae42b3c9e48ed3ae0c402"
+    },
+    {
+      "file": "src/screens/Search.tsx",
+      "windows": "26f9acc1e5fecacff8e1715f92c64825c191b2da3cdb74103dc2ab397a695596",
+      "osplayer-desktop-linux": "26f9acc1e5fecacff8e1715f92c64825c191b2da3cdb74103dc2ab397a695596",
+      "osplayer-desktop-macos": "26f9acc1e5fecacff8e1715f92c64825c191b2da3cdb74103dc2ab397a695596"
+    },
+    {
+      "file": "src/screens/Series.tsx",
+      "windows": "aec041ac0b69f4d32d233a1944bdae8656bcb7c568dfc6eae2bd16c87cbfed0a",
+      "osplayer-desktop-linux": "aec041ac0b69f4d32d233a1944bdae8656bcb7c568dfc6eae2bd16c87cbfed0a",
+      "osplayer-desktop-macos": "aec041ac0b69f4d32d233a1944bdae8656bcb7c568dfc6eae2bd16c87cbfed0a"
+    },
+    {
+      "file": "src/screens/Settings.tsx",
+      "windows": "a5eea278542d721c83f00fd11c8823add4a78d6b988df722c619d48d9db6e651",
+      "osplayer-desktop-linux": "a5eea278542d721c83f00fd11c8823add4a78d6b988df722c619d48d9db6e651",
+      "osplayer-desktop-macos": "a5eea278542d721c83f00fd11c8823add4a78d6b988df722c619d48d9db6e651"
+    },
+    {
+      "file": "src/screens/Splash.tsx",
+      "windows": "5fe3c6e6f02e4fe632507d68c19dfd62c34b55e4579835d6c1739246bc2b88b7",
+      "osplayer-desktop-linux": "5fe3c6e6f02e4fe632507d68c19dfd62c34b55e4579835d6c1739246bc2b88b7",
+      "osplayer-desktop-macos": "5fe3c6e6f02e4fe632507d68c19dfd62c34b55e4579835d6c1739246bc2b88b7"
+    },
+    {
+      "file": "src/screens/live-tv-parts.tsx",
+      "windows": "56ad62b19f4212fae1953346149446163a694dc1eeca333f553e258fba903b57",
+      "osplayer-desktop-linux": "56ad62b19f4212fae1953346149446163a694dc1eeca333f553e258fba903b57",
+      "osplayer-desktop-macos": "56ad62b19f4212fae1953346149446163a694dc1eeca333f553e258fba903b57"
+    },
+    {
+      "file": "src/screens/settings-panels.tsx",
+      "windows": "4d63d8300077d67ba4ea7d39028a03a5ffe132180b1c13179e4c1aa8fd78e47b",
+      "osplayer-desktop-linux": "4d63d8300077d67ba4ea7d39028a03a5ffe132180b1c13179e4c1aa8fd78e47b",
+      "osplayer-desktop-macos": "4d63d8300077d67ba4ea7d39028a03a5ffe132180b1c13179e4c1aa8fd78e47b"
+    },
+    {
+      "file": "src/screens/vod-shared.tsx",
+      "windows": "a652b8ef12cd12c9e105b162ed2bbf9e59ee0ac5d0a52cd7f036e0a536240611",
+      "osplayer-desktop-linux": "a652b8ef12cd12c9e105b162ed2bbf9e59ee0ac5d0a52cd7f036e0a536240611",
+      "osplayer-desktop-macos": "a652b8ef12cd12c9e105b162ed2bbf9e59ee0ac5d0a52cd7f036e0a536240611"
+    },
+    {
+      "file": "src/store/appStore.ts",
+      "windows": "0f80495d8c2d3cc7a3961b60ec1539bf3fbb5b01d89c2f12e57e193336c8c0cc",
+      "osplayer-desktop-linux": "0f80495d8c2d3cc7a3961b60ec1539bf3fbb5b01d89c2f12e57e193336c8c0cc",
+      "osplayer-desktop-macos": "0f80495d8c2d3cc7a3961b60ec1539bf3fbb5b01d89c2f12e57e193336c8c0cc"
+    },
+    {
+      "file": "src/store/contentStore.ts",
+      "windows": "0fca0f6a7d53f1f1878e630910ed4e37e7d82cef103d0d8929d3fafda07e4bf5",
+      "osplayer-desktop-linux": "0fca0f6a7d53f1f1878e630910ed4e37e7d82cef103d0d8929d3fafda07e4bf5",
+      "osplayer-desktop-macos": "0fca0f6a7d53f1f1878e630910ed4e37e7d82cef103d0d8929d3fafda07e4bf5"
+    },
+    {
+      "file": "src/task.md",
+      "windows": "c1b95e777424bf2137955e085677ef0ec8611fd459773069202a5fb29ed68135",
+      "osplayer-desktop-linux": "c1b95e777424bf2137955e085677ef0ec8611fd459773069202a5fb29ed68135",
+      "osplayer-desktop-macos": "c1b95e777424bf2137955e085677ef0ec8611fd459773069202a5fb29ed68135"
+    },
+    {
+      "file": "src/types.ts",
+      "windows": "59c3410698f90497dab32ceacdfaf36f139b7030a792b0b87b135af6d4e92ef2",
+      "osplayer-desktop-linux": "59c3410698f90497dab32ceacdfaf36f139b7030a792b0b87b135af6d4e92ef2",
+      "osplayer-desktop-macos": "59c3410698f90497dab32ceacdfaf36f139b7030a792b0b87b135af6d4e92ef2"
+    },
+    {
+      "file": "src/vite-env.d.ts",
+      "windows": "1d8dd38800f6d7e6d6738f905a43333b2daffcafd9860c98b6dccb005762145b",
+      "osplayer-desktop-linux": "1d8dd38800f6d7e6d6738f905a43333b2daffcafd9860c98b6dccb005762145b",
+      "osplayer-desktop-macos": "1d8dd38800f6d7e6d6738f905a43333b2daffcafd9860c98b6dccb005762145b"
+    },
+    {
+      "file": "src/walkthrough.md",
+      "windows": "9dfb2a38a3abfdb24f17094de5dbc14f2133018fb5c40886680f23646f88fd82",
+      "osplayer-desktop-linux": "9dfb2a38a3abfdb24f17094de5dbc14f2133018fb5c40886680f23646f88fd82",
+      "osplayer-desktop-macos": "9dfb2a38a3abfdb24f17094de5dbc14f2133018fb5c40886680f23646f88fd82"
+    }
+  ]
+}

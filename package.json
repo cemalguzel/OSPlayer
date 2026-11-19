@@ -1,0 +1,47 @@
+{
+  "name": "osplayer-desktop",
+  "version": "1.0.15",
+  "description": "OS Player Desktop - IPTV/VOD oynatici (gomulu MPV)",
+  "author": "OrtakSistem",
+  "license": "UNLICENSED",
+  "private": true,
+  "main": "dist-electron/main.js",
+  "scripts": {
+    "dev:renderer": "vite",
+    "build:renderer": "vite build",
+    "build:electron": "tsc -p tsconfig.electron.json",
+    "build": "npm run build:renderer && npm run build:electron",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.electron.json --noEmit",
+    "start": "npm run build && electron .",
+    "dist:win": "npm run build && electron-builder --win",
+    "dist:linux": "npm run build && npm run build:native && electron-builder --config electron-builder.platform.json --linux",
+    "encrypt": "node scripts/encrypt.js",
+    "build:native": "node scripts/build-native.cjs",
+    "dist:mac": "npm run build && npm run build:native && electron-builder --config electron-builder.platform.json --mac"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.10.0",
+    "hls.js": "^1.6.16",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-qr-code": "^2.2.0",
+    "react-virtuoso": "^4.18.7",
+    "zustand": "^4.5.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.0",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "electron": "^31.3.0",
+    "electron-builder": "^24.13.3",
+    "sharp": "^0.35.1",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.0",
+    "node-addon-api": "^8.5.0"
+  },
+  "homepage": "https://osplayer.com.tr"
+}
