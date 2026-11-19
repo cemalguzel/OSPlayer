@@ -10,7 +10,11 @@ module.exports=async context=>{
  const seen=new Map();
  function bundle(file){
   file=fs.realpathSync(file);if(seen.has(file))return seen.get(file);
-  execFileSync('lipo',['-verify_arch',expectedArch==='x64'?'x86_64':expectedArch,file]);
+  execFileSync('lipo', [
+  file,
+  '-verify_arch',
+  expectedArch === 'x64' ? 'x86_64' : expectedArch
+]);
   const name=path.basename(file),dest=path.join(root,name);
   if([...seen.values()].includes(name)) throw Error('Dylib dosya adı çakışması: '+name);
   seen.set(file,name);fs.copyFileSync(file,dest);fs.chmodSync(dest,0o755);
