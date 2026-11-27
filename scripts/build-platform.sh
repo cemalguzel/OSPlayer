@@ -18,8 +18,10 @@ if [ -z "${NODE_HEADERS:-}" ]; then
  tar -xzf .build-tools/node-headers.tar.gz -C .build-tools
  export NODE_HEADERS="$PWD/.build-tools/node-v${node_version}/include/node"
 fi
+node scripts/build-macos-icon.cjs
 npm run typecheck
 npm run build
 npm run build:native
 node --test tests/*.test.cjs
+node scripts/smoke-macos-mpv.cjs
 node node_modules/electron-builder/out/cli/cli.js --config electron-builder.platform.json --"$platform" --"$(node -p process.arch)" --publish never
