@@ -25,7 +25,8 @@
     ],
     "category": "public.app-category.entertainment",
     "artifactName": "OSPlayer_V1.dmg",
-    "identity": null
+    "identity": null,
+    "icon": "buildResources/icon.icns"
   },
   "asarUnpack": [
     "**/*.node"
