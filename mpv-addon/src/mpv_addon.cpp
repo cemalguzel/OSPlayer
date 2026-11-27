@@ -32,6 +32,7 @@
 #ifdef __APPLE__
 #import <Cocoa/Cocoa.h>
 #import <OpenGL/gl.h>
+#import <dispatch/dispatch.h>
 #include <mpv/render.h>
 #include <mpv/render_gl.h>
 #include <map>
@@ -73,8 +74,9 @@ decltype(&::mpv_wait_event) mpv_wait_event;
 decltype(&::mpv_event_name) mpv_event_name;
 };
 static MpvApi api;
+static void* mpvLibrary = nullptr;
 static void LoadMpv(Napi::Env env) {
-static void* lib = nullptr; if(lib) return;
+void*& lib = mpvLibrary; if(lib) return;
 #ifdef __APPLE__
 const char* paths[]={"@executable_path/../Frameworks/libmpv.2.dylib", "/opt/homebrew/lib/libmpv.2.dylib", "/usr/local/lib/libmpv.2.dylib"};
 #else
@@ -128,48 +130,88 @@ static void* GetGL(void*, const char* name) {
     static void* gl=dlopen("/System/Library/Frameworks/OpenGL.framework/OpenGL",RTLD_NOW);
     return dlsym(gl,name);
 }
+// Çizim kuyruğu MPV komutlarını çalıştıran Electron ana iş parçacığından ayrıdır.
+// Senkron loadfile/property çağrıları çizim beklerken görüntü üretimi devam eder.
 @interface OSPlayerVideoView : NSOpenGLView {
-@public mpv_render_context* renderer; NSTimer* frameTimer;
+@public mpv_render_context* renderer;
+    dispatch_queue_t renderQueue;
+    dispatch_source_t frameTimer;
+    int pixelWidth;
+    int pixelHeight;
 }
 - (void)startFrames;
 - (void)stopFrames;
 @end
 @implementation OSPlayerVideoView
 - (void)startFrames {
-    frameTimer=[NSTimer scheduledTimerWithTimeInterval:1.0/60.0 target:self selector:@selector(tick:) userInfo:nil repeats:YES];
+    frameTimer=dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,0,0,renderQueue);
+    dispatch_source_set_timer(frameTimer,dispatch_time(DISPATCH_TIME_NOW,0),NSEC_PER_SEC/60,NSEC_PER_MSEC);
+    dispatch_source_set_event_handler(frameTimer,^{
+        @autoreleasepool {
+        if(!renderer || pixelWidth<1 || pixelHeight<1) return;
+        [[self openGLContext] makeCurrentContext];
+        mpv_opengl_fbo fbo={0,pixelWidth,pixelHeight,0};
+        int flip=1;
+        mpv_render_param params[]={{MPV_RENDER_PARAM_OPENGL_FBO,&fbo},{MPV_RENDER_PARAM_FLIP_Y,&flip},{MPV_RENDER_PARAM_INVALID,nullptr}};
+        renderFrame(renderer,params);
+        [[self openGLContext] flushBuffer];
+        [NSOpenGLContext clearCurrentContext];
+        }
+    });
+    dispatch_resume(frameTimer);
 }
-- (void)tick:(NSTimer*)timer { [self setNeedsDisplay:YES]; }
 - (void)drawRect:(NSRect)dirty {
-    if(!renderer) return;
-    [[self openGLContext] makeCurrentContext];
+    // Cocoa ölçüleri yalnız ana iş parçacığında okunur. Retina fiziksel pikseli korunur.
     NSRect pixels=[self convertRectToBacking:[self bounds]];
-    mpv_opengl_fbo fbo={0,(int)pixels.size.width,(int)pixels.size.height,0};
-    int flip=1;
-    mpv_render_param params[]={{MPV_RENDER_PARAM_OPENGL_FBO,&fbo},{MPV_RENDER_PARAM_FLIP_Y,&flip},{MPV_RENDER_PARAM_INVALID,nullptr}};
-    renderFrame(renderer,params); [[self openGLContext] flushBuffer];
+    int width=(int)pixels.size.width, height=(int)pixels.size.height;
+    dispatch_async(renderQueue,^{
+        [[self openGLContext] makeCurrentContext];
+        [[self openGLContext] update];
+        pixelWidth=width; pixelHeight=height;
+        [NSOpenGLContext clearCurrentContext];
+    });
 }
 - (void)stopFrames {
-    [frameTimer invalidate]; frameTimer=nil;
-    if(renderer) { [[self openGLContext] makeCurrentContext]; renderFree(renderer); renderer=nullptr; }
+    if(frameTimer) {
+        dispatch_source_cancel(frameTimer);
+        dispatch_release(frameTimer);
+        frameTimer=nullptr;
+    }
+    // Kuyruktaki son kare bitmeden renderer veya NSView serbest bırakılmaz.
+    if(renderQueue) dispatch_sync(renderQueue,^{
+        if(renderer) {
+            [[self openGLContext] makeCurrentContext];
+            renderFree(renderer); renderer=nullptr;
+            [NSOpenGLContext clearCurrentContext];
+        }
+    });
+}
+- (void)dealloc {
+    [self stopFrames];
+    if(renderQueue) dispatch_release(renderQueue);
+    [super dealloc];
 }
 @end
 static OSPlayerVideoView* activeView=nullptr;
 static std::map<mpv_handle*,OSPlayerVideoView*> renderedViews;
 static void AttachRenderer(mpv_handle* h,Napi::Env env) {
-    void* lib=dlopen("/opt/homebrew/lib/libmpv.2.dylib",RTLD_NOW|RTLD_LOCAL);
-    if(!lib) lib=dlopen("/usr/local/lib/libmpv.2.dylib",RTLD_NOW|RTLD_LOCAL);
-    if(!lib) lib=dlopen("@executable_path/../Frameworks/libmpv.2.dylib",RTLD_NOW|RTLD_LOCAL);
-    if(!lib || !activeView) throw Napi::Error::New(env,"macOS video çizim alanı hazır değil.");
-    renderCreate=(decltype(renderCreate))dlsym(lib,"mpv_render_context_create");
-    renderFrame=(decltype(renderFrame))dlsym(lib,"mpv_render_context_render");
-    renderFree=(decltype(renderFree))dlsym(lib,"mpv_render_context_free");
+    // Core ve renderer kesinlikle aynı dylib örneğinden gelmeli.
+    if(!mpvLibrary || !activeView) throw Napi::Error::New(env,"macOS video çizim alanı hazır değil.");
+    renderCreate=(decltype(renderCreate))dlsym(mpvLibrary,"mpv_render_context_create");
+    renderFrame=(decltype(renderFrame))dlsym(mpvLibrary,"mpv_render_context_render");
+    renderFree=(decltype(renderFree))dlsym(mpvLibrary,"mpv_render_context_free");
     if(!renderCreate||!renderFrame||!renderFree) throw Napi::Error::New(env,"MPV çizim API bulunamadı.");
-    [[activeView openGLContext] makeCurrentContext];
-    mpv_opengl_init_params gl={GetGL,nullptr};
-    mpv_render_param params[]={{MPV_RENDER_PARAM_API_TYPE,(void*)MPV_RENDER_API_TYPE_OPENGL},{MPV_RENDER_PARAM_OPENGL_INIT_PARAMS,&gl},{MPV_RENDER_PARAM_INVALID,nullptr}};
-    int error=renderCreate(&activeView->renderer,h,params);
-    if(error<0) throw Napi::Error::New(env,"MPV OpenGL başlatılamadı.");
-    renderedViews[h]=activeView; [activeView startFrames]; dlclose(lib);
+    OSPlayerVideoView* view=activeView;
+    __block int error=0;
+    dispatch_sync(view->renderQueue,^{
+        [[view openGLContext] makeCurrentContext];
+        mpv_opengl_init_params gl={GetGL,nullptr};
+        mpv_render_param params[]={{MPV_RENDER_PARAM_API_TYPE,(void*)MPV_RENDER_API_TYPE_OPENGL},{MPV_RENDER_PARAM_OPENGL_INIT_PARAMS,&gl},{MPV_RENDER_PARAM_INVALID,nullptr}};
+        error=renderCreate(&view->renderer,h,params);
+        [NSOpenGLContext clearCurrentContext];
+    });
+    if(error<0) throw Napi::Error::New(env,std::string("MPV OpenGL başlatılamadı: ")+mpv_error_string(error));
+    renderedViews[h]=view; [view startFrames]; [view setNeedsDisplay:YES];
 }
 #endif
 // ── Helpers ────────────────────────────────────────────────────────────────
@@ -454,7 +496,14 @@ static Napi::Value CreateVideoWindow(const Napi::CallbackInfo& info) {
     NSOpenGLPixelFormatAttribute attrs[]={NSOpenGLPFAOpenGLProfile,NSOpenGLProfileVersion3_2Core,NSOpenGLPFADoubleBuffer,NSOpenGLPFAAccelerated,0};
     NSOpenGLPixelFormat* format=[[NSOpenGLPixelFormat alloc] initWithAttributes:attrs];
     OSPlayerVideoView* child=[[OSPlayerVideoView alloc] initWithFrame:NSMakeRect(0,0,1280,720) pixelFormat:format];
-    [format release]; child->renderer=nullptr; child->frameTimer=nil;
+    [format release];
+    if(!child || ![child openGLContext]) {
+        [child release];
+        throw Napi::Error::New(env,"macOS OpenGL 3.2 görüntü alanı oluşturulamadı.");
+    }
+    child->renderer=nullptr; child->frameTimer=nullptr;
+    child->renderQueue=dispatch_queue_create("com.ortaksistem.osplayer.mpv-render",DISPATCH_QUEUE_SERIAL);
+    child->pixelWidth=1280; child->pixelHeight=720;
     [child setWantsBestResolutionOpenGLSurface:YES]; activeView=child;
     [parent addSubview:child];
     return Napi::BigInt::New(env, reinterpret_cast<uint64_t>(child));
