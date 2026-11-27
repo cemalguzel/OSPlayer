@@ -4,7 +4,7 @@ const root=path.resolve(__dirname,'..');const headers=process.env.NODE_HEADERS;
 if(!headers || !fs.existsSync(path.join(headers,'node_api.h'))) throw Error('NODE_HEADERS include/node klasörünü göstermeli.');
 const dest=path.join(root,'mpv-addon/build/Release');fs.mkdirSync(dest,{recursive:true});
 const args=['-std=c++17','-shared','-fPIC','-fexceptions','-DNAPI_CPP_EXCEPTIONS','-DNAPI_VERSION=8','-I'+headers,'-I'+path.join(root,'node_modules/node-addon-api'),'-I'+path.join(root,'mpv-addon/include')];
-if(process.platform==='darwin') args.push('-x','objective-c++','-undefined','dynamic_lookup','-framework','Cocoa','-framework','OpenGL');
+if(process.platform==='darwin') args.push('-fblocks','-x','objective-c++','-undefined','dynamic_lookup','-framework','Cocoa','-framework','OpenGL');
 else if(process.platform==='linux') args.push('-Wl,-l:libX11.so.6','-ldl');
 else throw Error('Yalnız macOS/Linux desteklenir.');
 args.push(path.join(root,'mpv-addon/src/mpv_addon.cpp'),'-o',path.join(dest,'mpv_addon.node'));
