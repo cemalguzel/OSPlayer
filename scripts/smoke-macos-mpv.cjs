@@ -5,6 +5,11 @@ if(!process.versions.electron) {
  const env={...process.env}; delete env.ELECTRON_RUN_AS_NODE;
  const result=require('node:child_process').spawnSync(require('electron'),[__filename],{env,stdio:'inherit',timeout:45000});
  if(result.error) console.error(result.error.message);
+ console.error('Electron test sonucu:', {
+  status: result.status,
+  signal: result.signal,
+  error: result.error?.message ?? null
+});
  process.exit(result.error?1:(result.status??1));
 } else {
  const {app,BrowserWindow}=require('electron');
