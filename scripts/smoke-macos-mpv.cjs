@@ -8,6 +8,7 @@ if(!process.versions.electron) {
  process.exit(result.error?1:(result.status??1));
 } else {
  const {app,BrowserWindow}=require('electron');
+ app.setAppPath(path.resolve(__dirname, '..'));
  const directory=fs.mkdtempSync(path.join(os.tmpdir(),'osplayer-mpv-')),video=path.join(directory,'ornek.y4m');
  const chunks=[Buffer.from('YUV4MPEG2 W64 H64 F30:1 Ip A1:1 C420jpeg\n')];
  for(let i=0;i<150;i++) chunks.push(Buffer.from('FRAME\n'),Buffer.alloc(4096,40+i),Buffer.alloc(1024,90),Buffer.alloc(1024,180));
