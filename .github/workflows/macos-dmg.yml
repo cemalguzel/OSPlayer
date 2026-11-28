@@ -29,6 +29,30 @@ jobs:
         run: brew install mpv
       - name: DMG derle
         run: bash scripts/build-platform.sh
+      - name: macOS çökme raporlarını sakla
+        if: failure()
+        shell: bash
+        run: |
+          mkdir -p diagnostics
+          report_dir="$HOME/Library/Logs/DiagnosticReports"
+          for attempt in {1..10}; do
+            if [ -d "$report_dir" ]; then
+              find "$report_dir" -maxdepth 1 -type f \( -name '*Electron*.ips' -o -name '*Electron*.crash' \) -mmin -15 -exec cp {} diagnostics/ \;
+            fi
+            if [ -n "$(ls -A diagnostics)" ]; then break; fi
+            sleep 2
+          done
+          if [ -z "$(ls -A diagnostics)" ]; then
+            echo 'macOS çökme raporu üretmedi; derleme günlüğündeki son test aşamasını inceleyin.' > diagnostics/RAPOR_YOK.txt
+          fi
+      - name: Çökme kanıtlarını yükle
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mpv-tani-${{ matrix.arch }}
+          path: diagnostics/
+          if-no-files-found: warn
+          retention-days: 7
       - name: Özet oluştur
         run: shasum -a 256 release/*.dmg > release/SHA256SUMS.txt
       - uses: actions/upload-artifact@v4
