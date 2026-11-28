@@ -2,18 +2,16 @@
 const fs=require('node:fs'),os=require('node:os'),path=require('node:path');
 if(process.platform!=='darwin') { console.error('Bu test macOS ve Cocoa gerektirir.'); process.exit(1); }
 if(!process.versions.electron) {
- const env={...process.env}; delete env.ELECTRON_RUN_AS_NODE;
+ const env={...process.env,ELECTRON_ENABLE_LOGGING:'1',ELECTRON_ENABLE_STACK_DUMPING:'1'}; delete env.ELECTRON_RUN_AS_NODE;
  const result=require('node:child_process').spawnSync(require('electron'),[__filename],{env,stdio:'inherit',timeout:45000});
  if(result.error) console.error(result.error.message);
- console.error('Electron test sonucu:', {
-  status: result.status,
-  signal: result.signal,
-  error: result.error?.message ?? null
-});
+ console.error('Electron test sonucu:',{status:result.status,signal:result.signal,error:result.error?.message??null});
  process.exit(result.error?1:(result.status??1));
 } else {
  const {app,BrowserWindow}=require('electron');
- app.setAppPath(path.resolve(__dirname, '..'));
+ app.setAppPath(path.resolve(__dirname,'..'));
+ const stage=message=>console.error('[MPV test aşaması] '+message);
+ stage('Electron çalıştı; '+process.platform+' '+process.arch+' Electron '+process.versions.electron);
  const directory=fs.mkdtempSync(path.join(os.tmpdir(),'osplayer-mpv-')),video=path.join(directory,'ornek.y4m');
  const chunks=[Buffer.from('YUV4MPEG2 W64 H64 F30:1 Ip A1:1 C420jpeg\n')];
  for(let i=0;i<150;i++) chunks.push(Buffer.from('FRAME\n'),Buffer.alloc(4096,40+i),Buffer.alloc(1024,90),Buffer.alloc(1024,180));
@@ -21,21 +19,28 @@ if(!process.versions.electron) {
  let player,window,interval,finished=false;
  const finish=(code,message)=>{
   if(finished)return; finished=true; clearInterval(interval);
+  stage('Kaynaklar kapatılıyor');
   try{player?.quit();}catch(error){console.error(error);code=1;}
   fs.rmSync(directory,{recursive:true,force:true});console.log(message);
   setTimeout(()=>app.exit(code),700);
  };
  app.whenReady().then(async()=>{
+  stage('Pencere oluşturuluyor');
   window=new BrowserWindow({width:640,height:480,show:true});
   await window.loadURL('data:text/html,<body style="background:black"></body>');
+  stage('Pencere hazır; eklenti yükleniyor');
   const {MpvNative}=require('../dist-electron/mpv-native.js');let loaded=false;
   player=new MpvNative(event=>{
    if(event.event==='file-loaded')loaded=true;
    if(event.event==='end-file'&&event.data?.error<0)finish(1,'FAIL: MPV video açılışı.');
   },'OSPlayer-macOS-test');
   const handle=window.getNativeWindowHandle().readBigUInt64LE();
+  stage('Eklenti yüklendi; MPV ve görüntü yüzeyi başlatılıyor');
   await player.start({x:0,y:0,width:640,height:400,wid:Number(handle)});
-  await player.load(video);const started=Date.now();
+  stage('MPV hazır; yerel video yükleniyor');
+  await player.load(video);
+  stage('Yükleme komutu döndü; video ilerlemesi bekleniyor');
+  const started=Date.now();
   interval=setInterval(async()=>{try{
    const position=player.addon.getPropertyDouble(player.handle,'time-pos');
    const width=player.addon.getPropertyDouble(player.handle,'video-params/w');
