@@ -6,6 +6,24 @@ if(!process.versions.electron) {
  const result=require('node:child_process').spawnSync(require('electron'),[__filename],{env,stdio:'inherit',timeout:45000});
  if(result.error) console.error(result.error.message);
  console.error('Electron test sonucu:',{status:result.status,signal:result.signal,error:result.error?.message??null});
+ // Asıl test başarısız kalır; ikinci çalışma yalnız çağrı yığını toplar.
+ if(result.signal==='SIGTRAP') {
+  const diagnostics=path.resolve(__dirname,'../diagnostics');
+  fs.mkdirSync(diagnostics,{recursive:true});
+  const report=path.join(diagnostics,'lldb-mpv.txt');
+  const output=fs.openSync(report,'w');
+  try {
+   console.error('SIGTRAP: LLDB ile çağrı yığını toplanıyor.');
+   const debug=require('node:child_process').spawnSync('/usr/bin/xcrun',[
+    'lldb','--no-lldbinit','--batch',
+    '-o','settings set target.disable-aslr false',
+    '-o','run','-k','thread backtrace all','-k','image list',
+    '--',require('electron'),__filename
+   ],{env,stdio:['ignore',output,output],timeout:45000,killSignal:'SIGKILL'});
+   fs.writeSync(output,'\nLLDB sonucu: '+JSON.stringify({status:debug.status,signal:debug.signal,error:debug.error?.message??null})+'\n');
+  } finally { fs.closeSync(output); }
+  console.error('Çağrı yığını kaydı: '+report);
+ }
  process.exit(result.error?1:(result.status??1));
 } else {
  const {app,BrowserWindow}=require('electron');
